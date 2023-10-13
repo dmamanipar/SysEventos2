@@ -8,8 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 import pe.edu.upeu.asistencia.models.Periodo;
-import static org.mockito.BDDMockito.given;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.Assertions;
-import org.mockito.BDDMockito;
 import static org.mockito.BDDMockito.given;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
@@ -67,17 +63,22 @@ public class PeriodoControllerTest {
 
     @Test
     public void testListPeriodo() {
+        //given
         given(periodoService.findAll()).willReturn(periodos);
+        //when
         ResponseEntity<List<Periodo>> response = controller.listPeriodo();
+        //then
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(periodos, response.getBody());
     }
 
     @Test
     public void testCreatePeriodo() {
+        //given
         given(periodoService.save(periodo)).willReturn(periodo);
+        //when
         ResponseEntity<Periodo> response = controller.createPeriodo(periodo);
-        System.out.println("dato:" + response.getBody());
+        //then
         assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(response.getBody(), periodo);
     }
@@ -93,13 +94,14 @@ public class PeriodoControllerTest {
     @Test
     public void testDeletePeriodo() {
         // Mock
+        //given
         given(periodoService.getPeriodoById(1L)).willReturn(periodo);
         Map<String, Boolean> respuestaEsperada = new HashMap<>();
         respuestaEsperada.put("deleted", true);
         given(periodoService.delete(1L)).willReturn(respuestaEsperada);
-        // Llamada
+        //when
         ResponseEntity<Map<String, Boolean>> respuesta = controller.deletePeriodo(1L);
-
+        //then
         // Asserts
         assertEquals(HttpStatus.OK, respuesta.getStatusCode());
         assertEquals(respuestaEsperada, respuesta.getBody());
@@ -110,13 +112,10 @@ public class PeriodoControllerTest {
     @Test
     public void testUpdatePeriodo() {
         System.out.println("update");
-        //given
-        
-        given(periodoService.update(periodo, 1L)).willReturn(periodo);
-        
+        //given        
+        given(periodoService.update(periodo, 1L)).willReturn(periodo);        
         periodo.setEstado("Inactivo");
-        periodo.setNombre("2025-1");
-        
+        periodo.setNombre("2025-1");        
         //when
         ResponseEntity<Periodo> periodoActualizado = controller.updatePeriodo(1L, periodo);
         //then
