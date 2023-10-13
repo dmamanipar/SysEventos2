@@ -10,7 +10,7 @@ pipeline {
         stage('Clone') {
             steps {
                 timeout(time: 2, unit: 'MINUTES'){
-                    git branch: 'main', credentialsId: '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', url: 'https://github.com/dmamanipar/SysEventos2.git'
+                    git branch: 'main', credentialsId: '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', url: 'https://github.com/dmamanipar/SysEventos2.git'
                 }
             }
         }
