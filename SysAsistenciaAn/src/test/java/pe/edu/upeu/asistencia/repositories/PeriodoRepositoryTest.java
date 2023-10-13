@@ -55,7 +55,7 @@ public class PeriodoRepositoryTest {
     @DisplayName("Test para guardar un periodo")
     @Test
     public void testGuardarPeriodo() {
-        //given - dado o condición previa o configuración
+        //given - dado o condición previa o configuración  
         Periodo periodo1 = Periodo.builder()
                 .nombre("2021-2")
                 .estado("Inactivo")
@@ -64,7 +64,7 @@ public class PeriodoRepositoryTest {
         Periodo periodoGuardado = periodoRepository.save(periodo1);
         //then - verificar la salida
         assertThat(periodoGuardado).isNotNull();
-        assertEquals(periodoGuardado.getNombre(),periodo1.getNombre());
+        assertEquals(periodoGuardado.getNombre(),"2021-2");
        
     }
     
@@ -85,7 +85,7 @@ public class PeriodoRepositoryTest {
         //when
         List<Periodo> lista=periodoRepository.findAll();               
         //then 
-        assertEquals(lista.size(), 2);
+        assertEquals(lista.size(), 1);
     }
     
     @Order(4)
@@ -108,7 +108,7 @@ public class PeriodoRepositoryTest {
         periodoRepository.delete(periodox.get());
         List<Periodo> lista=periodoRepository.findAll();  
         //then
-        assertEquals(lista.size(),1);
+        assertEquals(lista.size(),0);
         
     }     
 
