@@ -4,54 +4,48 @@
  */
 package pe.edu.upeu.asistencia.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
+
+import java.util.Arrays;
 import java.util.List;
-import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import pe.edu.upeu.asistencia.models.Periodo;
 import pe.edu.upeu.asistencia.services.PeriodoService;
-import pe.edu.upeu.asistencia.services.UsuarioService;
+
 
 /**
  *
  * @author DELL
  */
-@WebMvcTest(PeriodoController.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+
+@ExtendWith(MockitoExtension.class)
 public class PeriodoControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
 
-    @MockBean
-    private PeriodoService service;
+    Periodo periodo;
 
-    @MockBean
-    private UsuarioService userService;
+    @Mock
+    private PeriodoService periodoService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-    
-    private String token;
+    @InjectMocks
+    private PeriodoController controller;
 
     @BeforeEach
     public void setUp() {
-        
-        
+        periodo = Periodo.builder()
+                .id(1L)
+                .nombre("2024-1")
+                .estado("Activo")
+                .build();
     }
 
     @AfterEach
@@ -59,19 +53,21 @@ public class PeriodoControllerTest {
     }
 
     @Test
-    void testListarPeriodo() throws Exception {
-        //given
-       /* List<PeriodoDto> listarPeriodo = new ArrayList<>();
-        listarPeriodo.add(PeriodoDto.builder().nombre("2021-1").estado("Activo").build());
-        listarPeriodo.add(PeriodoDto.builder().nombre("2021-2").estado("Desactivo").build());
-        listarPeriodo.add(PeriodoDto.builder().nombre("2022-1").estado("Desactivo").build());
-        given(service.findAll()).willReturn(listarPeriodo);
-        //when
-        ResultActions response = mockMvc.perform(get("/asis/periodo/list"));
-        //then
-        response.andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(jsonPath("$.size()", is(listarPeriodo.size())));*/
+    void testListarPeriodo(){
+        List<Periodo> periodos = Arrays.asList(
+                periodo,
+                Periodo.builder()
+                        .id(2L)
+                        .nombre("2024-2")
+                        .estado("Activo")
+                        .build()
+        );
+
+        given(periodoService.findAll()).willReturn(periodos);
+        ResponseEntity<List<Periodo>> response = controller.listPeriodo();
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertEquals(periodos, response.getBody());
+
     }
 
 }

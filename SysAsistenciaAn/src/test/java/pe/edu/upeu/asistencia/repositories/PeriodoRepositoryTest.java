@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -34,11 +35,8 @@ public class PeriodoRepositoryTest {
     @Autowired
     TestEntityManager testEntityManager;
 
-
-
     @BeforeEach
-    public void setUp() {
-        
+    public void setUp() {        
         List<Periodo> local = periodoRepository.findAll();  
         System.out.println("datas:"+local.size());
        if(local.isEmpty()){
@@ -55,7 +53,7 @@ public class PeriodoRepositoryTest {
     }
 
 
-
+    @Order(1)
     @DisplayName("Test para guardar un periodo")
     @Test
     public void testGuardarPeriodo() {
@@ -64,7 +62,6 @@ public class PeriodoRepositoryTest {
                 .nombre("2021-2")
                 .estado("Inactivo")
                 .build();
-
         //when - acción o el comportamiento que vamos a probar
         Periodo periodoGuardado = periodoRepository.save(periodo1);
 
@@ -74,6 +71,7 @@ public class PeriodoRepositoryTest {
         System.out.println("Data:"+periodoGuardado.getId());
     }
     
+    @Order(2)
     @Test
     public void findLocalByNameIgnoreCaseNotFound() {
         Optional<Periodo> local = periodoRepository.findByNombre("2021-2");
@@ -82,5 +80,32 @@ public class PeriodoRepositoryTest {
         System.out.println("local.get() = " + local.get());
         //fail("The test case is a prototype.");
     }  
+    
+    @Order(3)
+    @Test
+    public void testListarPeriodo() {        
+        List<Periodo> lista=periodoRepository.findAll();               
+        assertEquals(lista.size(), 2);
+    }
+    
+    @Order(4)
+    @Test
+    public void testActualizarPeriodo() {        
+        Optional<Periodo> periodox = periodoRepository.findByNombre("2021-2");
+        periodox.get().setEstado("Activo");
+        Periodo periodoGuardado = periodoRepository.save(periodox.get());
+        assertEquals(periodoGuardado.getEstado(),"Activo");
+        System.out.println("data:"+periodoGuardado.getEstado());
+    }    
+    
+    @Order(5)
+    @Test
+    public void testEliminarPeriodo() {        
+        Optional<Periodo> periodox = periodoRepository.findByNombre("2021-2");        
+        periodoRepository.delete(periodox.get());
+        List<Periodo> lista=periodoRepository.findAll();  
+        assertEquals(lista.size(),1);
+        
+    }     
 
 }

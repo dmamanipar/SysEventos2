@@ -11,12 +11,9 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.test.web.server.LocalServerPort;
-
 
 import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
@@ -25,6 +22,7 @@ import org.apache.http.HttpStatus;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import pe.edu.upeu.asistencia.dtos.UsuarioCrearDto;
 
 /**
  *
@@ -40,24 +38,34 @@ public class PeriodoControllerIntegrateTest {
 
     @MockBean
     private PeriodoService periodoService;*/
-
     @Autowired
     private ObjectMapper objectMapper;
 
     @LocalServerPort
     private int port;
-    
+
     private String token;
 
     @BeforeEach
     public void setUp() {
         RestAssured.port = this.port;
 
+        UsuarioCrearDto udto = new UsuarioCrearDto("Elias", "Mamani Pari", "eliasmp@upeu.edu.pe",
+                "Da12345*", "admin", "43631918", "upeu", "Activo", "SI");
+
         token = given()
                 .contentType(ContentType.JSON)
-                .body(new CredencialesDto("davidmp@upeu.edu.pe", "Da12345*")) //.toCharArray()
+                .body(new CredencialesDto("eliasmp@upeu.edu.pe", "Da12345*")) //.toCharArray()
                 .when().post("/asis/login")
                 .andReturn().jsonPath().getString("token");
+        if (token==null) {
+           token = given()
+                    .contentType(ContentType.JSON)
+                    .body(udto) //.toCharArray()
+                    .when().post("/asis/register")
+                    .andReturn().jsonPath().getString("token");
+            
+        }
         System.out.println("Ver:" + token);
 
     }
