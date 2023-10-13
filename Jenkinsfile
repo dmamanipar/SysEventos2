@@ -16,14 +16,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                timeout(time: 4, unit: 'MINUTES'){
+                timeout(time: 8, unit: 'MINUTES'){
                     sh "mvn -DskipTests clean package -f SysAsistenciaAn/pom.xml"
                 }
             }
         }
         stage('Test') {
             steps {
-                timeout(time: 4, unit: 'MINUTES'){
+                timeout(time: 8, unit: 'MINUTES'){
                     // Se cambia <test> por <install> para que se genere el reporte de jacoco
                     sh "mvn clean install -f SysAsistenciaAn/pom.xml"
                 }
