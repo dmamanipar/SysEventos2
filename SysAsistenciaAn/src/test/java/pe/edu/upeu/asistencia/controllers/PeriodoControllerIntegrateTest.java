@@ -74,8 +74,6 @@ public class PeriodoControllerIntegrateTest {
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK);
         //@formatter:on
-
-
     }
     /*
     @Test
