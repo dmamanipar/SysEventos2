@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.edu.upeu.asistencia.models.Periodo;
@@ -35,7 +34,7 @@ public class PeriodoController {
     @Autowired
     private PeriodoService periodoService;
     
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public ResponseEntity<List<Periodo>> listPeriodo() {
         List<Periodo> userDto = periodoService.findAll();
         return ResponseEntity.ok(userDto);

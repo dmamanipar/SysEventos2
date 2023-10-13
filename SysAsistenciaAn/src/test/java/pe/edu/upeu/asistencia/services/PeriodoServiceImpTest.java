@@ -97,7 +97,7 @@ public class PeriodoServiceImpTest {
         // Llamada a método a testear
         Map<String, Boolean> response = periodoService.delete(1L);
         // Asserts
-        assertThat(response.get("deleted"));
+        assertThat(response.get("deleted")).isEqualTo(true);
     }
 
     @Test

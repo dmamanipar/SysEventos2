@@ -7,18 +7,14 @@ package pe.edu.upeu.asistencia.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import groovy.util.logging.Slf4j;
 import io.restassured.RestAssured;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.boot.test.web.server.LocalServerPort;
-
 import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
+import org.apache.http.HttpStatus;
 import pe.edu.upeu.asistencia.dtos.CredencialesDto;
-
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -33,11 +29,7 @@ import pe.edu.upeu.asistencia.dtos.UsuarioCrearDto;
 @Slf4j
 public class PeriodoControllerIntegrateTest {
 
-    /*@Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private PeriodoService periodoService;*/
+    
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -73,28 +65,17 @@ public class PeriodoControllerIntegrateTest {
     @Test
     public void testListPeriodo() throws Exception {
         //@formatter:off
-        /*given()
+        given()
                 .accept(ContentType.JSON)
                 .header("Authorization", "Bearer "+token)
                 .when()
                 .get("/asis/periodo/list")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK);*/
+                .statusCode(HttpStatus.SC_OK);
         //@formatter:on
 
-        /*//given
-        List<PeriodoDto> listarPeriodo = new ArrayList<>();
-        listarPeriodo.add(PeriodoDto.builder().nombre("2021-1").estado("Activo").build());
-        listarPeriodo.add(PeriodoDto.builder().nombre("2021-2").estado("Desactivo").build());
-        listarPeriodo.add(PeriodoDto.builder().nombre("2022-1").estado("Desactivo").build());
-        given(periodoService.findAll()).willReturn(listarPeriodo);
-        //when
-        ResultActions response = mockMvc.perform(get("/asis/periodo/list"));
-        //then
-        response.andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(jsonPath("$.size()", is(listarPeriodo.size())));*/
+
     }
     /*
     @Test

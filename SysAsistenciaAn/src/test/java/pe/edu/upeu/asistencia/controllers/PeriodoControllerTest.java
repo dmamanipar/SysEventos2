@@ -29,7 +29,7 @@ import pe.edu.upeu.asistencia.services.PeriodoServiceImp;
  * @author DELL
  */
 @ExtendWith(MockitoExtension.class)
-public class PeriodoControllerTest {
+class PeriodoControllerTest {
 
     @Mock
     private PeriodoServiceImp periodoService;
