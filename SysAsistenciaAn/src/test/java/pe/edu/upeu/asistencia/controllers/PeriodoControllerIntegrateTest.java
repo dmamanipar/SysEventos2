@@ -18,7 +18,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import pe.edu.upeu.asistencia.dtos.CredencialesDto;
-import org.apache.http.HttpStatus;
+
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
