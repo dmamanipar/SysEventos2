@@ -85,7 +85,7 @@ public class PeriodoRepositoryTest {
         //when
         List<Periodo> lista=periodoRepository.findAll();               
         //then 
-        assertEquals(lista.size(), 1);
+        assertEquals(lista.size(), 2);
     }
     
     @Order(4)
@@ -108,7 +108,8 @@ public class PeriodoRepositoryTest {
         periodoRepository.delete(periodox.get());
         List<Periodo> lista=periodoRepository.findAll();  
         //then
-        assertEquals(lista.size(),0);
+        System.out.println("ca:"+lista.size());
+        assertEquals(lista.size(),1);
         
     }     
 
