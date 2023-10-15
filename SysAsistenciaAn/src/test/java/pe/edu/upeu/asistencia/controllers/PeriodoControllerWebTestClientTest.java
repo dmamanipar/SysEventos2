@@ -6,6 +6,7 @@ package pe.edu.upeu.asistencia.controllers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.hamcrest.Matchers;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,15 +18,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-
 import org.springframework.test.web.reactive.server.WebTestClient;
+
 import pe.edu.upeu.asistencia.dtos.CredencialesDto;
 import pe.edu.upeu.asistencia.dtos.UsuarioCrearDto;
-import pe.edu.upeu.asistencia.dtos.UsuarioDto;
 
 /**
  *
@@ -51,7 +50,6 @@ public class PeriodoControllerWebTestClientTest {
         System.out.println("Puerto x:" + this.port);
         UsuarioCrearDto udto = new UsuarioCrearDto("Elias", "Mamani Pari", "eliasmp@upeu.edu.pe",
                 "Da12345*", "admin", "43631918", "upeu", "Activo", "SI");
-
         try {
             var dd = webTestClient.post()
                     .uri("/asis/login")
@@ -61,7 +59,6 @@ public class PeriodoControllerWebTestClientTest {
                     .expectBody(String.class)
                     .returnResult()
                     .getResponseBody();
-
             JSONObject jsonObj = new JSONObject(dd);
             if (jsonObj.length() > 1) {
                 token = jsonObj.getString("token");
@@ -86,12 +83,9 @@ public class PeriodoControllerWebTestClientTest {
                             });
                 }
             }
-
         } catch (JSONException e) {
             System.out.println("saliooooo:" +e.getMessage());
         }
-
-        /* */
     }
 
     @AfterEach
