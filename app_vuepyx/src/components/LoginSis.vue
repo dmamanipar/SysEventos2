@@ -66,7 +66,7 @@
       }
       ,{
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
+          Authorization: 'Bearer ' + window.localStorage.getItem('token')
         }
       });
       

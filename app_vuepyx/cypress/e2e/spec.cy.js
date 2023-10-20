@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+/*/// <reference types="cypress" /> */
 
 describe('template spec', () => {
   let url=''
@@ -15,8 +15,8 @@ describe('template spec', () => {
     })
     // Caching session when logging in via API
     cy.setCookie('session_id', '189jd09sufh33aaiidhf99d09')
-
   })
+
 
   it('login', () => {
     cy.visit(url)

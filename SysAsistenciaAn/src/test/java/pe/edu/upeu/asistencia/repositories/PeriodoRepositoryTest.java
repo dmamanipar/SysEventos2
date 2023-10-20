@@ -85,7 +85,7 @@ public class PeriodoRepositoryTest {
         //when
         List<Periodo> lista=periodoRepository.findAll();               
         //then 
-        assertEquals(lista.size(), 1);
+        assertEquals(lista.size(), 2);
     }
     
     @Order(4)
