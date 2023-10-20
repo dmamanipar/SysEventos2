@@ -34,6 +34,14 @@ public class AuthController {
         return ResponseEntity.ok(userDto);
     }
 
+    @PostMapping("/detail")
+    public ResponseEntity<UsuarioDto> findUser(@RequestBody @Valid UsuarioDto.CorreoDto correo, HttpServletRequest request) {
+        UsuarioDto userDto = userService.findByLogin(correo.correo());
+        userDto.setToken(userAuthenticationProvider.createToken(userDto));
+        request.getSession().setAttribute("USER_SESSION", userDto.getCorreo());        
+        return ResponseEntity.ok(userDto);
+    }
+    
     @PostMapping("/register")
     public ResponseEntity<UsuarioDto> register(@RequestBody @Valid UsuarioCrearDto user) {
         

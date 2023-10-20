@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import pe.edu.upeu.asistencia.exceptions.ResourceNotFoundException;
 
 import pe.edu.upeu.asistencia.models.Periodo;
@@ -29,10 +30,10 @@ public class PeriodoServiceImp implements PeriodoService {
     @Autowired
     private PeriodoRepository periodoRepo;
 
-
+    
     @Override
     public Periodo save(Periodo periodo) {
-     
+    
         Periodo savedUser = periodoRepo.save(periodo);
         return savedUser;
     }

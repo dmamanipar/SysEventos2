@@ -72,5 +72,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
     }
+    
+
 
 }

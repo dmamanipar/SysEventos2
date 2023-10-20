@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pe.edu.upeu.asistencia.dtos.PeriodoDto;
+import pe.edu.upeu.asistencia.mappers.PeriodoMapper;
 
 import pe.edu.upeu.asistencia.models.Periodo;
 import pe.edu.upeu.asistencia.services.PeriodoService;
@@ -33,7 +35,6 @@ public class PeriodoController {
     
     @Autowired
     private PeriodoService periodoService;
-    
     @GetMapping(value = "/list")
     public ResponseEntity<List<Periodo>> listPeriodo() {
         List<Periodo> userDto = periodoService.findAll();
@@ -42,6 +43,10 @@ public class PeriodoController {
     
     @PostMapping("/crear")
     public ResponseEntity<Periodo> createPeriodo(@RequestBody Periodo periodo) {
+        /*Periodo varEnt=Periodo.builder()
+                .nombre(periodo.nombre())
+                .estado(periodo.estado())
+                .build();*/
         Periodo data = periodoService.save(periodo);
         return ResponseEntity.ok(data);
     }

@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Assertions;
 import static org.mockito.BDDMockito.given;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
+import pe.edu.upeu.asistencia.dtos.PeriodoDto;
+import pe.edu.upeu.asistencia.mappers.PeriodoMapper;
 import pe.edu.upeu.asistencia.services.PeriodoServiceImp;
 
 /**
@@ -33,12 +35,16 @@ class PeriodoControllerTest {
 
     @Mock
     private PeriodoServiceImp periodoService;
+    
+
 
     @InjectMocks
     private PeriodoController controller;
 
     Periodo periodo;
     List<Periodo> periodos;
+    
+    PeriodoDto.PeriodoCrearDto periodoxr;
  
     @BeforeEach
     public void setUp() {
@@ -47,6 +53,7 @@ class PeriodoControllerTest {
                 .nombre("2024-1")
                 .estado("Activo")
                 .build();
+        
         periodos = Arrays.asList(
                 periodo,
                 Periodo.builder()
@@ -77,6 +84,7 @@ class PeriodoControllerTest {
         //given
         given(periodoService.save(periodo)).willReturn(periodo);
         //when
+        
         ResponseEntity<Periodo> response = controller.createPeriodo(periodo);
         //then
         assertEquals(HttpStatus.OK, response.getStatusCode());

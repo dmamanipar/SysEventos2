@@ -20,5 +20,5 @@ public class UsuarioDto {
      String perfilPrin;
      String estado;
      String offlinex;
-
+     public record CorreoDto(String correo){}
 }
