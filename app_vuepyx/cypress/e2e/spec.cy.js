@@ -2,8 +2,6 @@
 
 describe('template spec', () => {
   let url=''
-
-
   beforeEach(() => {
     url='http://localhost:8080/'
 
@@ -14,7 +12,6 @@ describe('template spec', () => {
     }).then(({ body }) => {
       window.localStorage.setItem('token', body.token)
       window.localStorage.setItem('ver', "Holas")
-      
     })
     // Caching session when logging in via API
     cy.setCookie('session_id', '189jd09sufh33aaiidhf99d09')
