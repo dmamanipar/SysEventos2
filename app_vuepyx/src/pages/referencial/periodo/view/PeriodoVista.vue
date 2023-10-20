@@ -174,7 +174,7 @@ export default {
       }
         );
         if (response.data!=null) {
-          alert('Periodo insertado correctamente');
+          //alert('Periodo insertado correctamente');
           this.fetchPeriodos();
         } else {
           throw new Error('Error al insertar personal');
@@ -185,6 +185,7 @@ export default {
     },
     async fetchPeriodos() {
       try {
+        console.log("verrr:"+localStorage.getItem('token'))
         const response = await axios.get('asis/periodo/list', {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')

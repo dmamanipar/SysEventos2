@@ -57,7 +57,9 @@
     const data = response.data;
     
     if (data.correo==username.value) {
-      localStorage.setItem('token', data.token);
+      //localStorage.setItem('token', data.token);
+      window.localStorage.setItem('token', data.token)
+      window.setCookie('token', data.token)
       localStorage.setItem('correo', data.correo);
       const userDetailsResponse = await axios.post('/asis/detail', {
         correo: data.correo
