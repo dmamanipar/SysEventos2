@@ -5,19 +5,26 @@
         <a class="navbar-item" href="/app/home">
           <strong>SysEventos</strong>
         </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+        <!--<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </a>-->
+        <button  role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu" @click="toggleNav" >
+          
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button >
       </div>
 
-      <div id="navbarMenu" class="navbar-menu">
+      <div id="navbarMenu" class="navbar-menu nav-links" :class="{ 'active': isNavOpen }">
         <div class="navbar-start">
           <a class="navbar-item" href="/app/home">Inicio</a>
-          <div class="navbar-item has-dropdown is-hoverable">
+          
+          <div class="navbar-item has-dropdown is-hoverable" >
             <a class="navbar-link">Registro</a>
-            <div class="navbar-dropdown">
+            <div class="navbar-dropdown is-boxed">
               <a class="navbar-item" href="/app/periodo">Periodo</a>
               <a class="navbar-item" href="/app/usuario">Usuario</a>
             </div>
@@ -59,16 +66,46 @@ export default {
       return this.$store.state.user;
     }
   },
+  data() {
+    return {
+      isNavOpen: false
+    }
+  },
   methods: {
     logout() {
       localStorage.removeItem('token');
       this.$store.commit('setUser', null); // Limpiar el usuario en el store
       this.$router.push({ name: 'Login' });
+    },
+    toggleNav() {
+      console.log("Gggg");
+      this.isNavOpen = !this.isNavOpen;
+
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.nav-links {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+.nav-links.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 1rem;
+}
 @import "~bulma/css/bulma.min.css";
 </style>

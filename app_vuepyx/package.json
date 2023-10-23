@@ -14,8 +14,12 @@
     "bulma": "^0.9.4",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.10",
+    "primevue": "^3.37.0",
+    "stylus": "^0.60.0",
+    "v3confirm": "^1.1.1",
     "vue": "^3.2.13",
     "vue-router": "4",
+    "vue3-toastify": "^0.1.14",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },

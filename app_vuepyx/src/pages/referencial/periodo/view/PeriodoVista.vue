@@ -34,6 +34,8 @@
           </div>
         </div>
       </div>
+
+      <ConfirmPopup id="confirm" aria-label="popup" />
   <div class="container">
    
 <table class="table is-fullwidth is-bordered is-striped">
@@ -110,7 +112,7 @@
                 <i class="fas fa-check"></i>
               </span>
             </button>
-            <button class="button is-danger is-small is-rounded" @click="deletePeriodo(periodo.id)">
+            <button class="button is-danger is-small is-rounded" name="eliminar" @click="confirm(periodo.id)">
               <span class="icon is-small">
                 <i class="fas fa-trash-alt"></i>
               </span>
@@ -133,6 +135,10 @@
 
 <script>
 import axios from '@/axios.js';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import ConfirmPopup from 'primevue/confirmdialog';
+import 'primevue/resources/themes/lara-dark-teal/theme.css';
 
 export default {
   data() {
@@ -163,6 +169,9 @@ export default {
       return Math.ceil(this.periodos.length / this.perPage);
     }
   },
+  components: {
+    ConfirmPopup 
+  },
   methods: {
     async addPeriodo() {
       try {
@@ -174,7 +183,11 @@ export default {
       }
         );
         if (response.data!=null) {
-          //alert('Periodo insertado correctamente');
+          toast.success("Periodo insertado correctamente", {
+            autoClose: 1000,
+          });
+          this.newPeriodo.nombre="";
+          this.newPeriodo.estado="";
           this.fetchPeriodos();
         } else {
           throw new Error('Error al insertar personal');
@@ -202,7 +215,6 @@ export default {
         console.error(error);
       }
     },
-
     editPeriodo(periodo) {
       this.editingCI = periodo.id;
       Object.assign(this.editingPeriodo, periodo);
@@ -215,18 +227,39 @@ export default {
         }
       });
         if (response.data!=null) {
-          alert('Periodo actualizado correctamente');
+          toast.success("Periodo actualizado correctamente", {
+            autoClose: 1000,
+          });
           this.editingCI = null;
           this.fetchPeriodos();
         } else {
+          toast.success("Error al actualizar Periodo", {
+            autoClose: 1000,
+          });
           throw new Error('Error al actualizar Periodo');
         }
       } catch (error) {
         console.error(error);
+        toast.error("Error", {
+            autoClose: 1000,
+          });
       }
     },
 
-
+    confirm(dato) {
+      this.$confirm.require({
+        message: '¿Estás seguro de eliminar el registro '+dato+'?',
+        header: 'Confirmación!',
+        acceptClass: 'p-button-danger',
+        accept: () => { 
+          // Acción si confirma
+          this.deletePeriodo(dato);
+        },
+        reject: () => {
+          // Acción si cancela
+        }  
+      })
+    }, 
     async deletePeriodo(CI) {
     try {
       const response = await axios.delete('asis/periodo/eliminar/' + CI,  {
@@ -235,7 +268,10 @@ export default {
         }
       });
       if (response.data.deleted) {
-        alert('Periodo eliminado correctamente');
+        //alert('Periodo eliminado correctamente');
+        toast.success("Periodo eliminado correctamente", {
+            autoClose: 1000,
+          });
         this.fetchPeriodos();
       } else {
         throw new Error('Error al eliminar Periodo');

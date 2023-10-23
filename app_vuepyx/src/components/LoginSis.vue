@@ -40,13 +40,15 @@
   import { useRouter } from "vue-router";
   import { useStore } from "vuex";
   import axios from '../axios';
-
+  import { toast } from 'vue3-toastify';
+  import 'vue3-toastify/dist/index.css';
   export default {
     setup() {
       const router = useRouter();
       const username = ref("");
       const password = ref("");
       const store = useStore();
+      var data;
       const handleSubmit = async () => {
   try {
     const response = await axios.post('/asis/login', {
@@ -54,12 +56,13 @@
       password: password.value,
     });
     
-    const data = response.data;
+    data = response.data;
     
     if (data.correo==username.value) {
       //localStorage.setItem('token', data.token);
-      window.localStorage.setItem('token', data.token)
-      window.setCookie('token', data.token)
+      window.localStorage.setItem('token', data.token);
+      
+      //window.setCookie('token', data.token)
       localStorage.setItem('correo', data.correo);
       const userDetailsResponse = await axios.post('/asis/detail', {
         correo: data.correo
@@ -82,6 +85,10 @@
     }
   } catch (error) {
     console.error('An error occurred:', error);
+    toast.error("Verifique las credenciales!", {
+            autoClose: 1000,
+          });
+    
   }
 };
       return {

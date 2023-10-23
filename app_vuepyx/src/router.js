@@ -4,6 +4,7 @@ import Login from './components/LoginSis.vue';
 import MainMenu from './components/MainMenu.vue';
 import InicioMenu from '../src/pages/InicioMenu.vue';
 import PeriodoVista from '../src/pages/referencial/periodo/view/PeriodoVista.vue';
+import PruebaVista2 from '../src/pages/PruebaVista2.vue'
 import UsuarioVista from '../src/pages/referencial/usuario/view/UsuarioVista.vue';
 import store from './store';
 const routes = [
@@ -16,6 +17,11 @@ const routes = [
     path: '/app',
     component: MainMenu,
     children: [
+      {
+        path: 'pru',
+        name: 'Pru',
+        component: PruebaVista2 // Este será tu HomePage
+      },
       {
         path: 'home',
         name: 'Home',
