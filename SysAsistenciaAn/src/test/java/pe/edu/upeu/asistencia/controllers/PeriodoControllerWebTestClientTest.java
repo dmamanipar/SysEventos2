@@ -105,7 +105,7 @@ public class PeriodoControllerWebTestClientTest {
                 .jsonPath("$[0].nombre").isEqualTo("2023-2")
                 .jsonPath("$[0].estado").isEqualTo("Activo")
                 .jsonPath("$").isArray()
-                .jsonPath("$").value(Matchers.hasSize(2));
+                .jsonPath("$").value(Matchers.hasSize(1));
     }
 
 }

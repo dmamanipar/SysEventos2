@@ -6632,11 +6632,6 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vue-confirm-dialog@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-confirm-dialog/-/vue-confirm-dialog-1.1.0.tgz#2dad7a0d5797e843d9b215070fbbff89f31d33b9"
-  integrity sha512-Mp+41h9Y3LMSv9Vjb0WaWJ4wumj0VSe93cyNT7wLus+o4/5HnMC8EIDlDDMtAElaVqhFtQj2LRdquaBEcbBtJQ==
-
 vue-eslint-parser@^8.0.1:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-8.3.0.tgz#5d31129a1b3dd89c0069ca0a1c88f970c360bd0d"
